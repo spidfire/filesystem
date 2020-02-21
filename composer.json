@@ -1,5 +1,8 @@
 {
   "name": "spidfire/filesystem",
+  "require": {
+  },
+  "version": "1.0.1",
   "autoload": {
     "psr-4": {
       "Spidfire\\Filesystem\\": "src"
