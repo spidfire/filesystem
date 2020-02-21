@@ -32,7 +32,7 @@ class FileSystem
         $path = ltrim($path, DIRECTORY_SEPARATOR);
 
         $dir = rtrim($this->getPath(), DIRECTORY_SEPARATOR);
-        $result = new self($dir . DIRECTORY_SEPARATOR . $path, $shouldExist);
+        $result = new static($dir . DIRECTORY_SEPARATOR . $path, $shouldExist);
 
         if (!$this->containsFs($result)) {
             throw new FileSystemException(
@@ -119,7 +119,7 @@ class FileSystem
             throw new FileSystemException(sprintf('Directory "%s" was not created', $fullPath));
         }
 
-        return new self($fullPath);
+        return new static($fullPath);
     }
 
     public function createFile(string $path, int $rights = 0777, ?string $contents = null): self
@@ -133,7 +133,7 @@ class FileSystem
             file_put_contents($fullPath, $contents);
         }
 
-        return new self($fullPath);
+        return new static($fullPath);
     }
 
     public function createUniqueFile(string $path, int $rights = 0777, ?string $contents = null): self
@@ -148,7 +148,7 @@ class FileSystem
             file_put_contents($fullPath, $contents);
         }
 
-        return new self($fullPath);
+        return new static($fullPath);
     }
 
     public function createFileIfNotExist(string $path, int $rights = 0777, ?string $contents = null): self
@@ -319,7 +319,7 @@ class FileSystem
 
     public function getParent()
     {
-        return new self(dirname($this->getRealPath()));
+        return new static(dirname($this->getRealPath()));
     }
 
     public function getJson(): array
