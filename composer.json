@@ -1,7 +1,6 @@
 {
   "name": "spidfire/filesystem",
   "require": {
-    "monolog/monolog": "1.0.*"
   },
   "version": "1.0.0",
   "autoload": {

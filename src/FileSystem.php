@@ -327,7 +327,9 @@ class FileSystem
         $content = $this->getContents();
         $json = json_decode($content, true);
         if ($json === null) {
-            throw new FileSystemException('Could not parse JSON from: ' . $this->getPath());
+            throw new FileSystemException(
+                'Could not parse JSON from: ' . $this->getPath() . '(' . json_last_error_msg() . ')'
+            );
         }
 
         return $json;

@@ -1,3 +1,4 @@
 .php_cs.cache
 vendor/
 testingFiles/
+.phpunit.result.cache

@@ -182,4 +182,29 @@ final class BasicTest extends TestCase
         self::assertEquals('test.wicked.test.txt', $result->getDirname());
         $result->rmDir();
     }
+
+    public function testSlashes(): void
+    {
+        $fs = static::getTestDirectory();
+        if (DIRECTORY_SEPARATOR === '/') {
+            $invokeMethod = $this->invokeMethod($fs, 'fixSlashes', ['/test/test/']);
+            self::assertEquals('/test/test/', $invokeMethod);
+            $invokeMethod = $this->invokeMethod($fs, 'fixSlashes', ['\\test\\test\\']);
+            self::assertEquals('/test/test/', $invokeMethod);
+        } else {
+            $invokeMethod = $this->invokeMethod($fs, 'fixSlashes', ['/test/test/']);
+            self::assertEquals('\\test\\test\\', $invokeMethod);
+            $invokeMethod = $this->invokeMethod($fs, 'fixSlashes', ['\\test\\test\\']);
+            self::assertEquals('\\test\\test\\', $invokeMethod);
+        }
+    }
+
+    public function invokeMethod(&$object, $methodName, array $parameters = [])
+    {
+        $reflection = new \ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($object, $parameters);
+    }
 }
